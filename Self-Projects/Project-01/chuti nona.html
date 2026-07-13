@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chamu Saloon Products</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum: #3A1626;
+    --plum-soft: #5C2A40;
+    --peach: #F3DCC4;
+    --ivory: #FBF6EE;
+    --gold: #B8912F;
+    --ink: #201414;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--ivory);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:700;}
+  a{color:inherit; text-decoration:none;}
+
+  .label{
+    font-size:0.75rem;
+    text-transform:uppercase;
+    letter-spacing:0.2em;
+    color:var(--gold);
+    font-weight:600;
+  }
+
+  header{
+    background:var(--plum);
+    color:var(--ivory);
+    padding:1.3rem 1.5rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1rem;
+  }
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.6rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+  }
+  .logo em{color:var(--gold); font-style:normal;}
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:1.8rem;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+  }
+  nav a{opacity:0.85;}
+  nav a:hover{opacity:1; border-bottom:1px solid var(--gold);}
+
+  .hero{
+    background:var(--plum);
+    color:var(--ivory);
+    padding:5rem 5vw 6rem;
+    text-align:center;
+    position:relative;
+  }
+  .hero .label{color:var(--peach); display:block; margin-bottom:1rem;}
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    max-width:16ch;
+    margin:0 auto 1.2rem;
+    line-height:1.1;
+  }
+  .hero p{
+    max-width:46ch;
+    margin:0 auto 2rem;
+    color:var(--peach);
+    font-size:1.05rem;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--ink);
+    padding:0.9rem 2rem;
+    font-weight:600;
+    font-size:0.9rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    transition:transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover{transform:translateY(-2px); background:#c9a227;}
+
+  .section{
+    padding:4rem 5vw;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .section-head{
+    text-align:center;
+    margin-bottom:2.5rem;
+  }
+  .section-head h2{font-size:2.2rem; color:var(--plum);}
+
+  .shelf{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:1.8rem;
+  }
+  .product{
+    background:#fff;
+    border:1px solid #eadfce;
+    padding:0;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .product:hover{transform:translateY(-5px); box-shadow:0 14px 26px rgba(58,22,38,0.12);}
+  .swatch{
+    height:150px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2.6rem;
+  }
+  .product-body{padding:1.3rem 1.4rem 1.6rem;}
+  .product-body h3{font-size:1.25rem; color:var(--plum); margin-bottom:0.3rem;}
+  .product-body p{font-size:0.88rem; color:#5a4a4a; margin-bottom:0.8rem;}
+  .tag{
+    position:absolute;
+    top:0.9rem; right:0.9rem;
+    background:var(--gold);
+    color:var(--ink);
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-weight:700;
+    padding:0.3rem 0.6rem;
+    border-radius:2px;
+  }
+  .price-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px dashed #e5d8c2;
+    padding-top:0.7rem;
+  }
+  .price{font-weight:600; color:var(--plum);}
+  .price-row a{
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--gold);
+    font-weight:600;
+  }
+
+  .ritual{
+    background:var(--peach);
+    padding:4rem 5vw;
+  }
+  .ritual-inner{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3rem;
+    align-items:center;
+  }
+  .ritual h2{font-size:2rem; color:var(--plum); margin-bottom:1rem;}
+  .ritual p{color:#5a3a2c; margin-bottom:1rem; max-width:46ch;}
+  .ingredient-list{
+    display:flex;
+    flex-direction:column;
+    gap:0.9rem;
+  }
+  .ingredient{
+    display:flex;
+    gap:1rem;
+    align-items:baseline;
+    border-bottom:1px solid rgba(58,22,38,0.12);
+    padding-bottom:0.7rem;
+  }
+  .ingredient .num{font-family:'Cormorant Garamond', serif; font-weight:700; color:var(--gold); font-size:1.3rem;}
+  .ingredient h3{font-size:1.1rem; color:var(--plum);}
+  .ingredient p{font-size:0.85rem; color:#5a3a2c; margin:0;}
+
+  .testimonials{
+    padding:4rem 5vw;
+    max-width:1100px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .quote{
+    max-width:60ch;
+    margin:0 auto 1rem;
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.5rem;
+    font-style:italic;
+    color:var(--plum);
+    line-height:1.4;
+  }
+  .quote-name{
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--gold);
+    font-weight:600;
+  }
+
+  .visit{
+    background:var(--plum);
+    color:var(--ivory);
+    padding:3.5rem 5vw;
+  }
+  .visit-inner{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2.5rem;
+  }
+  .visit h3{font-size:1.3rem; margin-bottom:1rem; color:var(--peach);}
+  .visit-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.92rem;
+    padding:0.4rem 0;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+
+  footer{
+    background:var(--ink);
+    color:var(--peach);
+    text-align:center;
+    padding:1.6rem;
+    font-size:0.82rem;
+    opacity:0.85;
+  }
+
+  @media (max-width:800px){
+    .ritual-inner, .visit-inner{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Chamu <em>Saloon</em></div>
+  <nav>
+    <ul>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#ritual">Ingredients</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="label">Handmade in small batches</span>
+  <h1>Salon-grade care, made for your own bathroom shelf</h1>
+  <p>Chamu Saloon Products bottles what happens in the chair — the oils, the masks, the finishing serums — so the results last long after your appointment.</p>
+  <a href="#shop" class="btn">Shop the collection</a>
+</section>
+
+<section class="section" id="shop">
+  <div class="section-head">
+    <span class="label">The collection</span>
+    <h2>Best sellers from the salon</h2>
+  </div>
+  <div class="shelf">
+
+    <div class="product">
+      <span class="tag">Best Seller</span>
+      <div class="swatch" style="background:#F3DCC4;">🧴</div>
+      <div class="product-body">
+        <h3>Argan Repair Oil</h3>
+        <p>Lightweight nightly oil for dry, colour-treated hair.</p>
+        <div class="price-row">
+          <span class="price">Rs. 1,450</span>
+          <a href="#">Add</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="swatch" style="background:#EAD8E8;">🧖‍♀️</div>
+      <div class="product-body">
+        <h3>Rose Clay Mask</h3>
+        <p>Weekly deep-clean for combination and oily skin.</p>
+        <div class="price-row">
+          <span class="price">Rs. 1,190</span>
+          <a href="#">Add</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="swatch" style="background:#D9E4D3;">🌿</div>
+      <div class="product-body">
+        <h3>Herbal Scalp Tonic</h3>
+        <p>Cooling tonic for flaky, sensitive scalps.</p>
+        <div class="price-row">
+          <span class="price">Rs. 990</span>
+          <a href="#">Add</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <span class="tag">New</span>
+      <div class="swatch" style="background:#F0E6C8;">💛</div>
+      <div class="product-body">
+        <h3>Honey Keratin Mask</h3>
+        <p>Intensive repair for chemically treated hair.</p>
+        <div class="price-row">
+          <span class="price">Rs. 1,690</span>
+          <a href="#">Add</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="swatch" style="background:#E4D3D9;">💅</div>
+      <div class="product-body">
+        <h3>Shea Hand & Nail Butter</h3>
+        <p>Rich balm for salon-fresh hands between visits.</p>
+        <div class="price-row">
+          <span class="price">Rs. 750</span>
+          <a href="#">Add</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="swatch" style="background:#D3DEE4;">✨</div>
+      <div class="product-body">
+        <h3>Silk Finish Serum</h3>
+        <p>Heat-protecting shine drops for the final step.</p>
+        <div class="price-row">
+          <span class="price">Rs. 1,290</span>
+          <a href="#">Add</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="ritual" id="ritual">
+  <div class="ritual-inner">
+    <div>
+      <span class="label">What goes in</span>
+      <h2>No fillers, just what your hair and skin actually use</h2>
+      <p>Every formula starts on our own mixing bench before it ever reaches a shelf. We keep ingredient lists short enough to read in one breath.</p>
+    </div>
+    <div class="ingredient-list">
+      <div class="ingredient">
+        <span class="num">01</span>
+        <div>
+          <h3>Cold-pressed argan</h3>
+          <p>Sourced in small batches, never diluted</p>
+        </div>
+      </div>
+      <div class="ingredient">
+        <span class="num">02</span>
+        <div>
+          <h3>French rose clay</h3>
+          <p>Mineral-rich, drawn from a single quarry</p>
+        </div>
+      </div>
+      <div class="ingredient">
+        <span class="num">03</span>
+        <div>
+          <h3>Raw wildflower honey</h3>
+          <p>Local apiaries, unfiltered and unheated</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <p class="quote">"I asked my stylist what she used on my hair and it turns out I could just buy it — that's exactly what Chamu Saloon Products is for."</p>
+  <p class="quote-name">— Regular Client, Colombo</p>
+</section>
+
+<section class="visit" id="visit">
+  <div class="visit-inner">
+    <div>
+      <h3>Salon Hours</h3>
+      <div class="visit-row"><span>Tuesday – Saturday</span><span>9:00 AM – 7:00 PM</span></div>
+      <div class="visit-row"><span>Sunday</span><span>10:00 AM – 4:00 PM</span></div>
+      <div class="visit-row"><span>Monday</span><span>Closed</span></div>
+    </div>
+    <div>
+      <h3>Find Us</h3>
+      <p style="margin-bottom:0.6rem;">Bandaranayaka mawatha, galewela, Sri Lanka</p>
+      <p style="opacity:0.85;">+94 74 066 2220</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Chamu Saloon Products. All formulas made in-house.
+</footer>
+
+</body>
+</html>
